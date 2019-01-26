@@ -84,6 +84,48 @@
     }
 ```
 > params 和 headers 支持简单的表达式
+----
+    1. param1   :表示请求必须包含名为param1的请求参数
+    2. !param1  ：表示，请求不能包含名为param1的请求参数
+    3. paramm1!=value  : 表示请求包含名为param1的请求参数，但其值不能为 value1
+    4. {"param1=value1", param2} : 表示请求必须包含名为param1和param2的两个请求参数，且 param1的参数的值必须为value1
+----
+* Ant 风格资源地址支持3种匹配符
+    1. ? :匹配一个字符   /user/create?   => user/createA,  user/createB
+    2. \* : 匹配一个段的字符   /user/*/create  => /user/jack/create  , /user/yang/create
+    3. \*\*: 匹配任意个段,  /user/**/create  => /user/create   , /user/aa/create , /user/aa/bb/cc/create
+
+* @PathVariable  可以来映射URL中的占位符到目标方法的的参数中
+```
+    /**
+     * @PathVariable  可以来映射URL中的占位符到目标方法的的参数中
+     * @param id
+     * @return
+     */
+    @RequestMapping("/testPathVariable/{id}")
+    public String testPathVariable(@PathVariable("id") Integer id) {
+        System.out.println("testPathVariable:" + id);
+        return SUCCESS;
+    }
+```
+
+* HiddenHttpMethodFilter 可以将POST请求转成 delete 和 put 请求（tomcat8不支持！）
+
+* @RequestParam 请求参数获取
+    1. value 参数名
+    2. required 是否必须，默认是
+    3. defaultValue 默认值
+```
+    @RequestMapping(value = "/testRequestParam")
+    public String testRequestParam(@RequestParam(value = "username") String un, @RequestParam(value = "age", required = false, defaultValue = "0") int age) {
+        System.out.println("testRequestParam: username:" + un + ",age:" + age);
+        return SUCCESS;
+    }
+```
+
+
+
+
 
 
 
