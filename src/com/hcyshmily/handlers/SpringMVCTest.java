@@ -1,10 +1,11 @@
 package com.hcyshmily.handlers;
 
+import com.hcyshmily.entities.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 //如果RequestMapping是加在类上，那么里面的参数就是前缀
 @RequestMapping("/springmvc")
@@ -12,6 +13,65 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SpringMVCTest {
 
     private  static final  String SUCCESS = "success";
+
+
+    /**
+     * 可以使用 Servlet 原生的 API 作为目标方法的参数， 具体支持以下类型
+     * HttpServletRequest
+     * HttpServletResponse
+     * HttpSession
+     * Java.security.Principal
+     * Locale InputStream
+     * OutputStream
+     * Reader
+     * Writer
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/testServletAPI")
+    public String testServletAPI(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("testServletAPI, request: " + request + ", " + response);
+        return SUCCESS;
+    }
+
+    /**
+     * Spring mvc 会按照请求参数名和POJO属性名进行自动匹配
+     * 自动为该对象填充属性值，支持级联属性， 如  user.address.province
+     *
+     * 传入pojo属性，就会自动生成对象, 这个在开发的时候用的会很多
+     * @return
+     */
+    @RequestMapping(value = "/testPojo", method = RequestMethod.POST)
+    public String testPojo(User user) {
+        System.out.println("testPojo, user: " + user);
+        return SUCCESS;
+    }
+
+
+    /**
+     * 获取cookie属性值
+     * @CookieValue 映射一个cookie值
+     * @param j
+     * @return
+     */
+    @RequestMapping("/testCookieValue")
+    public String testCookieValue(@CookieValue("JSESSIONID") String j) {
+        System.out.println("testCookieValue, JSESSIONID: " + j);
+        return SUCCESS;
+    }
+
+    /**
+     * 获取请求头
+     * @param al
+     * @return
+     */
+    @RequestMapping(value = "/testRequestHeader", method = RequestMethod.GET)
+    public String testRequestHeader(@RequestHeader(value = "Accept-Language") String al) {
+        System.out.println("testRequestHeader, Accept-Language: " + al);
+        return SUCCESS;
+    }
 
     /**
      * 使用参数形式， 并配置RequestParam获取

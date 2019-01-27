@@ -122,9 +122,78 @@
         return SUCCESS;
     }
 ```
+* @RequestHeader 请求头参数， 和 RequestHeader 一样，可以指定参数名，是否必须，设置默认值
 
+* @CookieValue 获取cookie值， （开发中很少用)
+```
+    @RequestMapping("/testCookieValue")
+    public String testCookieValue(@CookieValue("JSESSIONID") String j) {
+        System.out.println("testCookieValue, JSESSIONID: " + j);
+        return SUCCESS;
+    }
+```
 
+* 使用 POJO 对对象进行 CURD操作
+```
+    @RequestMapping(value = "/testPojo", method = RequestMethod.POST)
+    public String testPojo(User user) {
+        System.out.println("testPojo, user: " + user);
+        return SUCCESS;
+    }
+```
+```html
+  <form action="/springmvc/testPojo" method="post">
+    <br>
+    username:<input type="text" name="name" />
+    <br>
+    password:<input type="password" name="password" />
+    <br>
+    email:<input type="text" name="email" />
+    <br>
+    province:<input type="text" name="address.province" />
+    <br>
+    city:<input type="text" name="address.city" />
+    <br>
+    <input type="submit" value="Submit" />
+  </form>
+```
 
+* 可以使用Servlet原生的 API
+```
+    /**
+     * 可以使用 Servlet 原生的 API 作为目标方法的参数， 具体支持以下类型
+     * HttpServletRequest
+     * HttpServletResponse
+     * HttpSession
+     * Java.security.Principal
+     * Locale InputStream
+     * OutputStream
+     * Reader
+     * Writer
+     * 
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/testServletAPI")
+    public String testServletAPI(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("testServletAPI, request: " + request + ", " + response);
+        return SUCCESS;
+    }
+
+    /**
+     * Spring mvc 会按照请求参数名和POJO属性名进行自动匹配
+     * 自动为该对象填充属性值，支持级联属性， 如  user.address.province
+     *
+     * 传入pojo属性，就会自动生成对象, 这个在开发的时候用的会很多
+     * @return
+     */
+    @RequestMapping(value = "/testPojo", method = RequestMethod.POST)
+    public String testPojo(User user) {
+        System.out.println("testPojo, user: " + user);
+        return SUCCESS;
+    }
+```
 
 
 
