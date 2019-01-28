@@ -195,7 +195,60 @@
     }
 ```
 
+## 处理模型数据
+1. ModelAndView ： 处理方法返回类型为 ModelAndView， 方法体可以通过该对象添加模型数据
+```
+    @RequestMapping("/testModelAndView")
+    public ModelAndView testModelAndView() {
+        // 小插曲， 引包不要引错了。是这个  import org.springframework.web.servlet.ModelAndView;
+        String viewname = "ModelAndView";
+        ModelAndView modelAndView = new ModelAndView(viewname);
+        modelAndView.addObject("time", new Date());
+        return modelAndView;
+    }
+```
+```
+view中这么调用
+<h4>Time: ${requestScope.time}</h4>
+```
 
+2. Map 及 Model： 入参为 org.springframework.ui.Model、org.springframework.ui.ModelMap
+或java.util.Map时， 处理方法返回时，Map中的数据会自动添加到模型中去(本质上也是扔到 ModelAndView中)
+> Spring MVC在内部使用了org.springframework.ui.Model接口存储模型数据, 在调用方法前会创建一个隐含的模型对象作为模型数据的存储容器。
+如果方法的入参为Map或Model类型，则会将疑难的引用传递给这些入参
+```
+    @RequestMapping("testMap")
+    public String testMap(Map<String, Object> map) {
+        System.out.println(map.getClass().getName());
+        map.put("names", Arrays.asList("AAA", "bbb", "CCC"));
+        return "Map";
+    }
+```
+```
+view中这么调用
+<h2>names: ${requestScope.names}</h2>
+```
+
+3. 若希望在多个请求之间共用某个模型数据类型，则可以在控制器类上标注一个 @SessionAttributes， Spring 将在
+模型中对应的属性暂存到 HttpSession中.
+> @SessionAttributes处理可以通过【属性名】指定需要放到会话中的属性外，还可以通过模型属性的【对象类型】
+指定哪些模型属性需要放到会话中.比如
+```
+// 将会把带有所有是 user属性名的，age属性名的存起来， 然后，把所有 value值类型是 String的东西存起来
+// 这个注解要放在类中！！！
+@SessionAttributes(value={"user", "age"}, types={String.class});
+
+    @RequestMapping("/testSessionAttributes")
+    public String testSessionAttributes(Map<String, Object> map) {
+        User user = new User("Jack", "pass", "Jack@233.com");
+        map.put("user", user);
+        map.put("age", 25);
+        return "SessionAttributes";
+    }
+```
+```
+<h2>age: ${sessionScope.age}</h2>
+```
 
 
 

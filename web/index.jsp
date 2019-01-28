@@ -34,6 +34,18 @@
   <a href="springmvc/testServletAPI"> Test ServletAPI</a>
   <br>
 
+  <a href="springmvc/testModelAndView"> Test ModelAndView</a>
+  <br>
+
+  <a href="springmvc/testMap"> Test Map</a>
+  <br>
+  <a href="springmvc/testSessionAttributes"> Test SessionAttributes</a>
+  <br>
+
+  <br>
+  <br>
+  <br>
+  <br>
 
   <form action="/springmvc/testMethod" method="post">
       <input type="submit" value="submit" />

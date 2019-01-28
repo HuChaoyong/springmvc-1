@@ -3,16 +3,63 @@ package com.hcyshmily.handlers;
 import com.hcyshmily.entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.Map;
 
 //如果RequestMapping是加在类上，那么里面的参数就是前缀
 @RequestMapping("/springmvc")
 @Controller
+@SessionAttributes(value = {"user"}, types = {Integer.class})
 public class SpringMVCTest {
 
     private  static final  String SUCCESS = "success";
+
+    /**
+     * 把数据对象存放在 session中，
+     * 1. 需要在类上添加 @SessionAttributes (只能放在类上！)
+     * 2. 并指定属性名(value属性)，或对象类型类(types属性)
+     * @param map
+     * @return
+     */
+    @RequestMapping("/testSessionAttributes")
+    public String testSessionAttributes(Map<String, Object> map) {
+        User user = new User("Jack", "pass", "Jack@233.com");
+        map.put("user", user);
+        map.put("age", 25);
+        return "SessionAttributes";
+    }
+
+    /**
+     * 目标方法可以添加 Map 类型，（实际上也可以是 Model类型或 ModelMap 类型）的参数
+     * @param map
+     * @return
+     */
+    @RequestMapping("testMap")
+    public String testMap(Map<String, Object> map) {
+        System.out.println(map.getClass().getName());
+        map.put("names", Arrays.asList("AAA", "bbb", "CCC"));
+        return "Map";
+    }
+
+    /**
+     * 目标方法返回的值可以是 ModelAndView类型，
+     * 其中可以包含视图和模型信息
+     * Spring MVC会把ModelAndView的model中的数据放入到 request域对象中
+     * @return
+     */
+    @RequestMapping("/testModelAndView")
+    public ModelAndView testModelAndView() {
+        // 小插曲， 引包不要引错了。是这个  import org.springframework.web.servlet.ModelAndView;
+        String viewname = "ModelAndView";
+        ModelAndView modelAndView = new ModelAndView(viewname);
+        modelAndView.addObject("time", new Date());
+        return modelAndView;
+    }
 
 
     /**
