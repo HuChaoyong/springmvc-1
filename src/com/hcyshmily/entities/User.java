@@ -1,12 +1,21 @@
 package com.hcyshmily.entities;
 
 public class User {
+
+    private Integer id;
     public String name;
     public String password;
     public String email;
     public Address address;
 
     public User(String name, String password, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+    }
+
+    public User(Integer id, String name, String password, String email) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
@@ -44,13 +53,21 @@ public class User {
         this.address = address;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", address=" + address +
                 '}';
     }
 }

@@ -14,10 +14,29 @@ import java.util.Map;
 //如果RequestMapping是加在类上，那么里面的参数就是前缀
 @RequestMapping("/springmvc")
 @Controller
-@SessionAttributes(value = {"user"}, types = {Integer.class})
+//@SessionAttributes(value = {"user"}, types = {Integer.class}) // 使用ModelAttribute时，不能使用该注解，会冲突
 public class SpringMVCTest {
 
     private  static final  String SUCCESS = "success";
+
+    /**
+     * 有 ModelAttribute标记的方法，会在每个目标方法执行前被Spring MVC调用
+     */
+    @ModelAttribute
+    public void getUser(@RequestParam(value = "id", required = false) Integer id, Map<String, Object> map) {
+        if (id != null) {
+            // 模拟从数据库中获取存在的对象 user
+            User user = new User(1, "Tom", "123456", "tom@163.com");
+            System.out.println("从数据库中获取了一个user: " + user);
+            map.put("user", user);
+        }
+    }
+
+    @RequestMapping("/testModelAttribute")
+    public String testModelAttribute(User user) {
+        System.out.println("修改了user: " + user);
+        return SUCCESS;
+    }
 
     /**
      * 把数据对象存放在 session中，

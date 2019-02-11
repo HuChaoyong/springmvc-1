@@ -80,6 +80,18 @@
     <input type="submit" value="Submit" />
   </form>
 
+  <br>
+  <br>
+
+  <form action="/springmvc/testModelAttribute" method="post">
+    <br>
+    username <<input type="text" name="name" value="Jack">
+    <br>
+     <input type="hidden" name="id" value="1">
+    <br>
+    <input type="submit" value="submit" />
+  </form>
+
 
   </body>
 </html>
