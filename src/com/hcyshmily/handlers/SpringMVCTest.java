@@ -20,20 +20,43 @@ public class SpringMVCTest {
     private  static final  String SUCCESS = "success";
 
     /**
-     * 有 ModelAttribute标记的方法，会在每个目标方法执行前被Spring MVC调用
+     * 1. 有 ModelAttribute标记的方法，会在每个目标方法执行前被Spring MVC调用
+     * 2. 有 @MedalAttribute 注解也可以修饰目标方法 POJO 类型的入参，其 value 属性有如下的作用
+     *      a. Spring MVC 会使用value属性值( User)在 implicitModel 中查找对应的对象，若存在，则会直接传入到目标方法
+     *      b. Spring MVC 会以 value 为 key， POJO类型的对象为 value， 存到 request中
      */
     @ModelAttribute
     public void getUser(@RequestParam(value = "id", required = false) Integer id, Map<String, Object> map) {
         if (id != null) {
             // 模拟从数据库中获取存在的对象 user
-            User user = new User(1, "Tom", "123456", "tom@163.com");
+            User user = new User(id, "Tom", "123456", "tom@163.com");
             System.out.println("从数据库中获取了一个user: " + user);
             map.put("user", user);
+            /**
+             *
+             * 如果这里的 key  "user" 改成了 ”abc",
+             * 那么 testModelAttribute 方法中就需要变成 testModelAttribute(@ModelAttribute("abc") User user)
+             **/
+
         }
     }
 
+    /**
+     * 运行流程：
+     * 1. 执行@ModelAttribute注解修饰的方法： 从数据库中取出对象，把对象放入到Map中，键为： user
+     * 2. Spring MVC 从Map中取出User对象，并把表单的请求参数赋给User对象对应的属性
+     * 3. Spring MVC 把上述对象传入目标方法参数
+     *
+     * 注意： 在@ModelAttribute修饰的方法中，放入到Map中的键需要和方法入参中的第一个字母小写的字符串一致
+     *
+     */
     @RequestMapping("/testModelAttribute")
     public String testModelAttribute(User user) {
+        /**
+         * 如果使用了 @SessionAttributes 注解，同时，请求的POJO又符合存入到Session中的name时，spring MVC就会去Session中找，找不到就会报错。抛出异常.
+         * 1. 要么使用 @ModelAttribute 注解，手动给加个 name的键值对，并且类型要匹配得上
+         * 2. 要么，在类型前面加上 @ModelAttribute("anotherName") 使用另外一个名字，这样就不会认为POJO在 session中
+         */
         System.out.println("修改了user: " + user);
         return SUCCESS;
     }
