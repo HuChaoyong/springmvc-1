@@ -250,7 +250,17 @@ view中这么调用
 <h2>age: ${sessionScope.age}</h2>
 ```
 
+# CURD
 
+* 处理静态文件时，需要配置,在 sprimgmvc.xml中
+    ```xml
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven></mvc:annotation-driven>
+    ```
+    > default-servlet-handler 是spring默认的handler，如果是静态资源请求，就给它处理，如果不是
+    静态资源请求，才给DispatcherServlet处理
+    
+   
 
 
  

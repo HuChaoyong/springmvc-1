@@ -12,7 +12,22 @@
 <head>
     <title>List all employees</title>
 </head>
+
+<script src="script/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".delete").click(function () {
+            var href = $(this).attr("href");
+            $("form").attr("action", href).submit();
+            return false;
+        });
+    })
+</script>
+
 <body>
+
+<form action="/del/emp/" method="post"></form>
+
     <c:if test="${empty requestScope.employees}">
         没有任何员工信息！
     </c:if>
@@ -36,7 +51,7 @@
                     <td>${emp.gender == 0 ? 'Female' : 'Male'}</td>
                     <td>${emp.department.departmentName}</td>
                     <td><a href="">Edit</a> </td>
-                    <td><a href="">Delete</a> </td>
+                    <td><a class="delete" href="/del/emp/${emp.id}">Delete</a> </td>
                 </tr>
             </c:forEach>
         </table>
