@@ -9,6 +9,8 @@ public class Department {
         this.departmentName = departmentName;
     }
 
+    public Department() {}
+
     public Integer getId() {
         return id;
     }

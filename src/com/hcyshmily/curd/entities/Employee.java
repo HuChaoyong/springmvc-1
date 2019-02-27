@@ -15,6 +15,9 @@ public class Employee {
         this.department = department;
     }
 
+    public Employee() {
+        this.department = new Department();
+    }
 
     public Integer getId() {
         return id;
