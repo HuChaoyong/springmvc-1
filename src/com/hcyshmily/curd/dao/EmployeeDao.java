@@ -14,7 +14,7 @@ public class EmployeeDao {
     private static Map<Integer, Employee> employees = null;
 
     @Autowired
-    private static DepartmentDao departmentDao;
+    private DepartmentDao departmentDao;
 
     public static  Integer initId = 1006;
 
@@ -40,6 +40,7 @@ public class EmployeeDao {
         if (employee.getId() == null) {
             employee.setId(initId++);
         }
+
         employee.setDepartment(departmentDao.getDepartment(employee.getDepartment().getId()));
         employees.put(employee.getId(), employee);
     }

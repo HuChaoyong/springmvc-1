@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<form:form action="${pageContext.request.contextPath}/emp" method="POST" modelAttribute="employee">
+<form:form action="${pageContext.request.contextPath}/emp" method="POST" enctype="application/x-www-form-urlencoded" modelAttribute="employee">
 
     LastName: <form:input path="lastName" />
 

@@ -2,6 +2,7 @@ package com.hcyshmily.curd.handler;
 
 import com.hcyshmily.curd.dao.DepartmentDao;
 import com.hcyshmily.curd.dao.EmployeeDao;
+import com.hcyshmily.curd.entities.Department;
 import com.hcyshmily.curd.entities.Employee;
 import com.hcyshmily.curd.entities.Hero;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,12 @@ public class EmployeeHandler {
     }
 
 
-//    @ModelAttribute
-//    public void getEmployee(@RequestParam(value = "id", required = false) Integer id, Map<String, Object> map) {
-//        if (id != null) {
-//            map.put("employee", employeeDao.get(id));
-//        } else {
-//
-//        }
-//    }
+    @ModelAttribute
+    public void getEmployee(@RequestParam(value = "id", required = false) Integer id, Map<String, Object> map) {
+        if (id != null) {
+            map.put("employee", employeeDao.get(id));
+        }
+    }
 
 
     // 保证在更新时，未编辑的属性不更新，需要用到 ModelAttribute
@@ -68,10 +67,11 @@ public class EmployeeHandler {
         return "redirect:/emps";
     }
 
-//    @RequestMapping(value = "/testPojo", method = RequestMethod.POST)
     @RequestMapping(value = "/hero", method = RequestMethod.POST)
     @ResponseBody
     public String test(Hero hero) {
+        Department s = departmentDao.getDepartment(101);
+        System.out.println(s    );
         return hero.toString();
     }
 

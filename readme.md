@@ -261,7 +261,9 @@ view中这么调用
     静态资源请求，才给DispatcherServlet处理
     
    
+* POJO 提交处理时，需要把form 加上 enctype="application/x-www-form-urlencoded" 属性 ！！！
 
+* @Autowired 注解的不能是静态的！
 
  
 

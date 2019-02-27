@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<form:form action="${pageContext.request.contextPath}/emp" method="post" enctype="multipart/form-data" modelAttribute="employee">
+<form:form action="${pageContext.request.contextPath}/emp" method="post" enctype="application/x-www-form-urlencoded" modelAttribute="employee">
 
     <c:if test="${employee.id == null}">
         LastName: <form:input path="lastName" />
