@@ -265,6 +265,20 @@ view中这么调用
 
 * @Autowired 注解的不能是静态的！
 
- 
+#  how  annotation-driver   work.
+* \<mvc:annotation-driven /> 会自动注册，
+<b>RequestMappingHandelerMapping、RequestMappingHandelAdapter、
+ExceptionHandlerExceptionResolver 三个bean.</b>
+
+* 还将提供以下支持:
+1. 支持使用 ConversionService实例对表单参数进行类型转换
+2. 支持使用@NumberFormatannotation、@DataTimeFormat 注解完成数据类型的格式化
+3. 使用 @Valid 注解对 JavaBean实例进行 JSR 303 验证
+4. 支持使用 @RequestBody 和 @ResponseBody 注解 
+
+* 如图
+![avator](./images/36-1.png)
+
+next_p37
 
 

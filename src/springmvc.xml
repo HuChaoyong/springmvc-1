@@ -16,6 +16,12 @@
 
     <mvc:default-servlet-handler/>
 
+    <!--
+    配置直接转发的页面，
+    可以直接转发相应的页面，而无需再经过 Handler 的方法
+    -->
+    <mvc:view-controller path="/success" view-name="success" />
+
     <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 
     <!--配置 ConversionService-->
