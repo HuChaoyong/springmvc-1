@@ -15,6 +15,16 @@
 </head>
 <body>
 
+<%--自定义类型转换器--%>
+<form action="testConversionServiceConverer" method="POST">
+    <!--  lastname-email-gender-department.id  -->
+    <%--例如  GG-gg@163.com-0-105--%>
+    Employee: <input type="text" name="employee" />
+    <input type="submit" value="Submit" />
+</form>
+
+<h2>-----------------------</h2>
+
 <form:form action="${pageContext.request.contextPath}/emp" method="POST" enctype="application/x-www-form-urlencoded" modelAttribute="employee">
 
     LastName: <form:input path="lastName" />
