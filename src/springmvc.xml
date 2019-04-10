@@ -22,10 +22,23 @@
     -->
     <mvc:view-controller path="/success" view-name="success" />
 
-    <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="conversionService2"></mvc:annotation-driven>
 
+    <!--<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>-->
     <!--配置 ConversionService-->
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="employeeConverter" />
+            </set>
+        </property>
+    </bean>
+
+    <!--
+    用这个class，既能添加自定义的类型转换器， lastname-email-gender-department-
+    又可以使用 Spring提供给我们的格式化工具  @DateFormat
+    -->
+    <bean id="conversionService2" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <set>
                 <ref bean="employeeConverter" />

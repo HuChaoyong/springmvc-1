@@ -1,11 +1,24 @@
 package com.hcyshmily.curd.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
+import java.util.Date;
+
 public class Employee {
     private Integer id;
     private String lastName;
     private String email;
     private Integer gender;
     private Department department;
+
+    // 提供类型转换的格式， 这里是字符串转date类型
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birth;
+
+    // 提供转换的格式，这里是  字符串转 Float类型
+    @NumberFormat(pattern = "#,###,###.#")
+    private Float salary;
 
     public Employee(Integer id, String lastName, String email, Integer gender, Department department) {
         this.id = id;
@@ -57,6 +70,22 @@ public class Employee {
         this.department = department;
     }
 
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
+
+    public Float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Float salary) {
+        this.salary = salary;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -65,6 +94,8 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", gender=" + gender +
                 ", department=" + department +
+                ", birth=" + birth +
+                ", salary=" + salary +
                 '}';
     }
 }

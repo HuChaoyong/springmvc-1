@@ -279,6 +279,72 @@ ExceptionHandlerExceptionResolver 三个bean.</b>
 * 如图
 ![avator](./images/36-1.png)
 
-next_p37
+# @InitBinder
+* 由 @InitBinder标识的方法，可以对WebDataBinder对象进行初始化。WebDataBinder是DataBinder的子类.
+用于完成由表单字段到JavaBean属性的绑定.
+* @InitBinder方法不能有返回值，必须声明为 void
+* @InitBinder 方法的参数通常是WebDataBinder
+
+```
+    // 这里是在赋值时，不给 lastName属性进行赋值
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setDisallowedFields("lastName");
+    }
+```
+
+![avator](./images/37-1.png)
+
+# 数据格式化(数据格式的转换)
+
+* Spring 在格式化模块中定义了一个实现 ConversionService的接口 <b>FormattingConversionService</b>实现类 <br>
+因此它既具有类型转换的功能，又具有格式化的功能.
+
+* FormattingConversionService 拥有一个 FormattingConversionServiceFactoryBean 工厂类，
+后者用于在Spring上下文构造前.
+
+* FormattingConversionServiceFactoryBean 内部已经注册了： 
+    > NumberFormatAnnotationFormatterFactory ：支持对数字类型的属性，使用 @NumberFormat注解<br>
+    JodaDateTimeFormatAnnotationFormatterFactory: 支持对日期类型属性使用 @DateTimeFormat注解
+    
+* 装配了 FormattingConversionServiceFactoryBean 后，就可以在 Spring MVC 入参绑定及模型数据输出时<br>
+使用注解驱动了。
+    > \<mvc:annotation-driven /> 默认创建的 ConversionService实例即为 FormattingConversionServiceFactoryBean
+
+> @DateTimeFormat 注解可对 java.util.Date、java.util.Calendar、 java.long.Long时间类型进行标注<br>
+@NumberFormat 可对类似数字类型的属性进行标注。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

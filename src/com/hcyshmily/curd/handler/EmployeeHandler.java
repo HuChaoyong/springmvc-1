@@ -7,6 +7,9 @@ import com.hcyshmily.curd.entities.Employee;
 import com.hcyshmily.curd.entities.Hero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -47,7 +50,13 @@ public class EmployeeHandler {
 
     // 保存后， 跳转到list界面
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
-    public String save(Employee employee) {
+    public String save(Employee employee, BindingResult binder) {
+        System.out.println("save: " + employee);
+        if (binder.getErrorCount() > 0) {
+            for (FieldError error: binder.getFieldErrors()) {
+                System.out.println(error.getField() + ":" + error.getDefaultMessage());
+            }
+        }
         employeeDao.save(employee);
         return "redirect:/emps";
     }
@@ -75,6 +84,12 @@ public class EmployeeHandler {
         return hero.toString();
     }
 
-
+    /**
+     * 不自动绑定 lastName， 意味着，创建或者修改的 lastName将不会得到赋值.
+     */
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder) {
+//        binder.setDisallowedFields("lastName");
+//    }
 
 }
