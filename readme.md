@@ -314,6 +314,25 @@ ExceptionHandlerExceptionResolver 三个bean.</b>
 > @DateTimeFormat 注解可对 java.util.Date、java.util.Calendar、 java.long.Long时间类型进行标注<br>
 @NumberFormat 可对类似数字类型的属性进行标注。
 
+# 数据校验
+1. 使用注解
+```
+     // 提供类型转换的格式， 这里是字符串转date类型
+      @DateTimeFormat(pattern = "yyyy-MM-dd")
+      private Date birth;
+```
+> JSR 303是Java为Bean数据合法性校验提供的标准框架,已经包含在JavaEE6.0中.
+JSR303通过在Bean属性上标注,类似于 @NotNull、@Max 等标注注解进行校验.
+
+* Spring4.0拥有自己独立的数据校验框架，同时支持JSR303标准校验框架。
+* Spring 在进行数据绑定时，可同时调用校验框架完成数据校验工作。在Spring MVC中，可以直接通过
+注解驱动的方式进行数据校验。
+* Spring 的 LocalValidatorFactoryBean即实现了Spring的Validator接口，也实现了
+JSR303的Validator接口。只要在Spring容器中定义一个 LocalValidatorFactoryBean即可将其
+注入到需要校验的Bean中。
+* \<mvc:annotation-driver/> 会默认装配好一个LocalValidatorFactoryBean。通过在处理方法的入参上标注@valid注解
+即可让Spring MVC在完成数据绑定后执行数据校验工作.
+* Spirng 本身么有提供JSR303的实现，所以需要手动把包加进去
 
 
 
