@@ -1,17 +1,23 @@
 package com.hcyshmily.curd.entities;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 public class Employee {
     private Integer id;
+    @NotEmpty
     private String lastName;
+    @Email
     private String email;
     private Integer gender;
     private Department department;
-
+    // @Past 是用于验证的，必须得是过去的时间
+    @Past
     // 提供类型转换的格式， 这里是字符串转date类型
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;

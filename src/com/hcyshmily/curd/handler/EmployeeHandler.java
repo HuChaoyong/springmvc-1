@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -50,7 +51,7 @@ public class EmployeeHandler {
 
     // 保存后， 跳转到list界面
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
-    public String save(Employee employee, BindingResult binder) {
+    public String save(@Valid Employee employee, BindingResult binder) {
         System.out.println("save: " + employee);
         if (binder.getErrorCount() > 0) {
             for (FieldError error: binder.getFieldErrors()) {

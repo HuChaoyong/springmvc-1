@@ -25,6 +25,7 @@
     <mvc:annotation-driven conversion-service="conversionService2"></mvc:annotation-driven>
 
     <!--<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>-->
+
     <!--配置 ConversionService-->
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
