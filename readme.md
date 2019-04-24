@@ -334,6 +334,9 @@ JSR303的Validator接口。只要在Spring容器中定义一个 LocalValidatorFa
 即可让Spring MVC在完成数据绑定后执行数据校验工作.
 * Spirng 本身么有提供JSR303的实现，所以需要手动把包加进去
 
+# 返回JSON
+* 引入正确的 jackson包，在返回的时候，不用处理 Collection， Map这些，就会自动处理成json返回
+> 如果jackson的版本和Spring 的版本对不上，就会出问题 (= =, 试了很多个版本，都不行...)
 
 
 
