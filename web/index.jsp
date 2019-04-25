@@ -30,6 +30,19 @@
   <br>
   <br>
   <a href="/testJson" id="testJson">Get Json</a>
+  <br>
+  <br>
+  <form action="testHttpMessageConverter" method="post" enctype="multipart/form-data">
+    File: <input type="file" name="file" /><br>
+    Desc: <input type="text" name="desc" />
+    <button type="submit" >Submit</button>
+  </form>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <a href="/testResponseEntity" >Test ResponseEntity</a>
 
   </body>
 </html>

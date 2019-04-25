@@ -336,10 +336,21 @@ JSR303的Validator接口。只要在Spring容器中定义一个 LocalValidatorFa
 
 # 返回JSON
 * 引入正确的 jackson包，在返回的时候，不用处理 Collection， Map这些，就会自动处理成json返回
+>  1. 加入jar包 \[jackson-annotations.jar, jackson-core.jar, jackson-databind.jar\]
+>  2. 编写目标方法
+>  3. 在方法上添加 @ResponseBody注解.
+
 > 如果jackson的版本和Spring 的版本对不上，就会出问题 (= =, 试了很多个版本，都不行...)
 
-
-
+* 之所以能返回JSON这得得益于 HttpMessageConverter<T>
+> HttpMessageConverter<T>是Spring3.0新添加的一个接口，负责将请求信息转换为一个对象（类型为T）
+将对象(类型T)输出为响应信息.<br>
+HttpMessageConverter<T> 工作流程图
+![avator](./images/42-1.png)
+* HttpMessageConverter\<T>本身有很多的实现类
+![avator](./images/42-2.png)
+* 这些是Spring默认搭载的实现类
+![avator](./images/42-3.png)
 
 
 

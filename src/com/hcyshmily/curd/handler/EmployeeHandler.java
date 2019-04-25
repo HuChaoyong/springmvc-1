@@ -6,14 +6,22 @@ import com.hcyshmily.curd.entities.Department;
 import com.hcyshmily.curd.entities.Employee;
 import com.hcyshmily.curd.entities.Hero;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -24,6 +32,31 @@ public class EmployeeHandler {
 
     @Autowired
     private DepartmentDao departmentDao;
+
+    // 下载文件的测试
+    @RequestMapping("/testResponseEntity")
+    public ResponseEntity<byte[]> testResponseEntity(HttpSession session) throws IOException {
+        byte[] body = null;
+        ServletContext servletContext = session.getServletContext();
+        InputStream in = servletContext.getResourceAsStream("/files/test.txt");
+        body = new byte[in.available()];
+        in.read(body);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment;filename=abc.txt");
+        HttpStatus status = HttpStatus.OK;
+        ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(body, headers, status);
+
+        return response;
+    }
+
+//    testHttpMessageConverter 的测试
+    @ResponseBody
+    @RequestMapping("/testHttpMessageConverter")
+    public String testHttpMessageConverter(@RequestBody String body) {
+        System.out.println(body);
+        return "Nice http request " + new Date();
+    }
 
     @RequestMapping("/emps")
     public  String list(Map<String, Object> map) {
