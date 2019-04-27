@@ -353,6 +353,21 @@ HttpMessageConverter<T> 工作流程图
 ![avator](./images/42-3.png)
 
 
+# 国际化
+* 关于国际化
+1. 在页面上能够根据浏览器语言设置的情况对文本（不是内容），时间
+数值进行本地化处理
+2. 可以在bean中获取国际化资源文件 Locale对应的消息
+3. 可以通过超链接切换 Locale ，而不再依赖于浏览的语言设置情况
+> 解决： <br>
+    1. 使用JSTL的fmt标签<br>
+    2. 在bean中注入ResourceBoundleMessageSource的实例，使用其对应的getMessage方法即可.<br>
+    3. 配置LocalResolver 和 LocalChangeInterceptor
+    
+* i18n 中， SessionLocaleResolver & LocaleChangeIntercepter 工作原理
+![avator](./images/46-1.png)
+
+
 
 
 

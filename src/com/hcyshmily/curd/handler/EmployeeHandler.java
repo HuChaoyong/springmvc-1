@@ -115,7 +115,7 @@ public class EmployeeHandler {
     @ResponseBody
     public String test(Hero hero) {
         Department s = departmentDao.getDepartment(101);
-        System.out.println(s    );
+        System.out.println(s);
         return hero.toString();
     }
 
