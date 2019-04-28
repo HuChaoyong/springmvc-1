@@ -16,5 +16,11 @@
 <fmt:message key="i18n.user"></fmt:message>
 <br>
 <a href="i18n2">I18n2 Page</a>
+<br>
+<br>
+<a href="i18n?locale=zh_CN">中文</a>
+<br>
+<br>
+<a href="i18n?locale=en_US">英文</a>
 </body>
 </html>
