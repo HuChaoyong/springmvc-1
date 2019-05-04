@@ -378,6 +378,15 @@ Spring 用 Jakarta Commons FileUpload 技术，实现了一个 MultipartResolver
 ![avator](./images/47-2.png)
 
 
+# 使用拦截器.
+* 自定义拦截器可以对请求进行拦截处理，用户可以自定义拦截器来实现特定的功能，自定义的拦截器必须实现 handlerInterceptor接口.
+    > 
+    1. preHandler() 这个方法在业务处理请求之前被调用.(权限、日志、事务等.)<br>
+    2. postHandle() 这个方法在业务处理器处理完请求后，但是， DispatcherServlet向客户端返回响应前被调用.(可以对请求域中的属性或者视图做出修改)<br>
+    3. afterCompletion() 这个方法在 DispatcherServlet 完全处理请求后被调用.(释放资源)
+
+
+
 
 
 
