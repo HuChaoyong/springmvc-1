@@ -367,10 +367,15 @@ HttpMessageConverter<T> 工作流程图
 * i18n 中， SessionLocaleResolver & LocaleChangeIntercepter 工作原理
 ![avator](./images/46-1.png)
 
+# 文件上传
+* Spring MVC 为文件上传提供了直接的支持，这种支持是通过即插即用的MultipartResolver实现的.<br>
+Spring 用 Jakarta Commons FileUpload 技术，实现了一个 MultipartResolver实现类:
+<b>CommonsMultipartResolver</b>
 
-
-
-
+* 因为Spring MVC 上下文中默认没有装配MultipartResolver，因此，需要手动配置bean.
+![avator](./images/47-1.png)
+* 并且加上 form 和 controller
+![avator](./images/47-2.png)
 
 
 

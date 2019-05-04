@@ -47,5 +47,13 @@
   <br>
   <br>
   <a href="i18n">I18n Page</a>
+  <br>
+  <br>
+  <br>
+  <form action="/testFileUpload" method="post" enctype="multipart/form-data">
+    File: <input type="file" name="file" /><br>
+    Desc: <input type="text" name="desc" />
+    <button type="submit" >Submit</button>
+  </form>
   </body>
 </html>
